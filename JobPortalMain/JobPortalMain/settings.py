@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'Account',
     'knox',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'Jobs'
 ]
 
 REST_FRAMEWORK = {
@@ -48,7 +49,14 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
