@@ -5,7 +5,7 @@ from django.core.validators import validate_email
 User=get_user_model()
 from .models import  CompanyRegistrationModel
 from rest_framework.validators import  UniqueValidator
-from rest_framework_simplejwt.serializers import  TokenObtainPairSerializer
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
@@ -63,13 +63,13 @@ class CompanyRegisterSerializer(serializers.ModelSerializer):
         fields=('company_name','email','contact_number','password','password1','place')
 
 
-class CompanyTokenObtainPairSerializer(TokenObtainPairSerializer):
-   @classmethod
-   def get_token(cls,user):
-       token=super(CompanyTokenObtainPairSerializer,cls).get_token(user)
-
-       token['username']=user.username
-       return token
+# class CompanyTokenObtainPairSerializer(TokenObtainPairSerializer):
+#    @classmethod
+#    def get_token(cls,user):
+#        token=super(CompanyTokenObtainPairSerializer,cls).get_token(user)
+#
+#        token['username']=user.username
+#        return token
 
 
 

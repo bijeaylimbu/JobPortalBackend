@@ -7,11 +7,11 @@ from rest_framework import generics, viewsets, status
 from django.contrib.auth import  get_user_model
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
-from rest_framework_simplejwt.views import TokenObtainPairView
+
 User=get_user_model()
 from rest_framework.permissions import AllowAny
 
-from .serializers import  UserSerializer,UserRegister,CompanyRegisterSerializer,CompanyTokenObtainPairSerializer
+from .serializers import  UserSerializer,UserRegister,CompanyRegisterSerializer
 from .models import CompanyRegistrationModel
 
 
@@ -32,11 +32,11 @@ class CompanyRegisterView(generics.CreateAPIView):
     serializer_class = CompanyRegisterSerializer
     permission_classes = (AllowAny,)
 
-
-class CompnayLoginView(TokenObtainPairView):
-
-    serializer_class = CompanyTokenObtainPairSerializer
-    permission_classes = (AllowAny,)
+#
+# class CompnayLoginView(TokenObtainPairView):
+#
+#     serializer_class = CompanyTokenObtainPairSerializer
+#     permission_classes = (AllowAny,)
 
 
 
