@@ -63,9 +63,7 @@ class Jobs(models.Model):
 
 
 
-
-
-
-
+class HitCount(models.Model):
+    visits=models.IntegerField(default=0)
 
 

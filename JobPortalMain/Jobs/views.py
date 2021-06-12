@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from functools import reduce
-from django.db.models import Q
+from django.db.models import Q, F
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, filters, viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -11,8 +11,8 @@ from rest_framework.generics import get_object_or_404, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 import django_filters
-from .models import Jobs
-from .serializers import JobsSerializer
+from .models import Jobs,HitCount
+from .serializers import JobsSerializer,HitCountSerializer
 
 
 
@@ -42,5 +42,13 @@ class JobDetailView(RetrieveAPIView):
 
 
 
+class HitCountViewSet(viewsets.ModelViewSet):
+    queryset = HitCount.objects.all()
+    serializer_class =HitCountSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance=self.get_object()
+        HitCount.objects.filter(pk=instance.id).update(visits=F('visits')+1)
+        serializer=self.get_serializer(instance)
+        return Response(serializer.data)
 
