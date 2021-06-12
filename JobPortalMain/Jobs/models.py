@@ -39,19 +39,20 @@ PLACE=(
 
 # Create your models here.
 class Jobs(models.Model):
-    post_by=models.ForeignKey(User,on_delete=models.CASCADE,default='')
-    location=models.CharField(max_length=255, choices=PLACE,default='')
-    job_category=models.CharField(max_length=255, choices=JOB_CATEGORIES,blank=False,default='')
-    position=models.CharField(max_length=255, blank=False,default='')
-    experience=models.CharField(max_length=255,blank=False,default='')
-    job_description=models.TextField(blank=False,default='')
-    responsiblities=models.TextField(blank=False,default='')
-    skill=models.TextField(blank=False,default='')
-    education=models.CharField(max_length=255,blank=False,default='')
-    what_we_offer=models.TextField(blank=False,default='')
-    email=models.EmailField( blank=False,default='')
+    post_by=models.ForeignKey(User,on_delete=models.CASCADE,)
+    company_name=models.CharField(max_length=255,blank=False,)
+    location=models.CharField(max_length=255, choices=PLACE,)
+    job_category=models.CharField(max_length=255, choices=JOB_CATEGORIES,blank=False,)
+    position=models.CharField(max_length=255, blank=False,)
+    experience=models.CharField(max_length=255,blank=False,)
+    job_description=models.TextField(blank=False,)
+    responsiblities=models.TextField(blank=False,)
+    skill=models.TextField(blank=False,)
+    education=models.CharField(max_length=255,blank=False,)
+    what_we_offer=models.TextField(blank=False,)
+    email=models.EmailField( blank=False,)
     post_date=models.DateField( auto_now_add=True)
-    before_date=models.DateField(blank=False,default='2020-2-2')
+    before_date=models.DateField(blank=False,)
 
     # class Meta:
     #     ordering=['post_date']

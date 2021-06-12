@@ -18,7 +18,7 @@ from .serializers import JobsSerializer
 
 
 class JobsView(generics.ListCreateAPIView):
-    queryset = Jobs.objects.all()
+    queryset = Jobs.objects.all().select_related('post_by')
 
 
     permission_classes = (AllowAny,)
