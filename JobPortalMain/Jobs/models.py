@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import  get_user_model
 User=get_user_model()
+import datetime
+from django.utils import timezone
 JOB_CATEGORIES=(
     ('IT - Software / Hardware / Networking','IT - Software / Hardware / Networking'),
     ('Business / Administration','Business / Administration'),
@@ -70,6 +72,8 @@ class Jobs(models.Model):
     position_type=models.CharField(max_length=255, choices=POSITION_TYPES,blank=False,)
     number_of_vacancy=models.CharField(max_length=255, blank=False,)
     job_type=models.CharField(max_length=255, choices=JOB_TYPES,blank=False,)
+
+
 
     # class Meta:
     #     ordering=['post_date']
