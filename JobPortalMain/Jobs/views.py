@@ -42,6 +42,17 @@ class JobDetailView(RetrieveAPIView):
 
 
 
+
+
+class RelatedJobsList(RetrieveAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = JobsSerializer
+    # queryset = Jobs.objects.all()
+
+    def get_object(self):
+        return Jobs.objects.filter(job_category=self.kwargs['job_category'])
+
+
 class HitCountViewSet(viewsets.ModelViewSet):
     queryset = HitCount.objects.all()
     serializer_class =HitCountSerializer

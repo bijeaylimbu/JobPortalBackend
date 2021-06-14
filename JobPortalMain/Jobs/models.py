@@ -35,7 +35,20 @@ PLACE=(
 )
 
 
+POSITION_TYPES=(
+    ("Entry Level","Entry Level"),
+    ("Intermediate","Intermediate"),
+    ("Expert","Expert")
 
+)
+
+JOB_TYPES=(
+    ('Full Time','Full Time'),
+    ('Part Time','Part Time'),
+    ("Contract","Contract")
+
+
+)
 
 # Create your models here.
 class Jobs(models.Model):
@@ -53,6 +66,10 @@ class Jobs(models.Model):
     email=models.EmailField( blank=False,)
     post_date=models.DateField( auto_now_add=True)
     before_date=models.DateField(blank=False,)
+    salary=models.CharField(max_length=255, blank=False,)
+    position_type=models.CharField(max_length=255, choices=POSITION_TYPES,blank=False,)
+    number_of_vacancy=models.CharField(max_length=255, blank=False,)
+    job_type=models.CharField(max_length=255, choices=JOB_TYPES,blank=False,)
 
     # class Meta:
     #     ordering=['post_date']
