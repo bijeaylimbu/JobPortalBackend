@@ -1,3 +1,4 @@
+import datetime
 
 from django.db.models import Q, F
 from django_filters.rest_framework import DjangoFilterBackend
@@ -21,6 +22,11 @@ class JobsView(generics.ListCreateAPIView):
     search_fields = ['$position','$job_category']
     filterset_fields = ['job_category','location']
 
+    # def perform_create(self, serializer):
+    #     start_date=datetime.datetime.strptime(self.request.data.get('before_date'),"%Y-%m-%d")
+    #     end_date=datetime.datetime.strptime(self.request.data.get('post_date'),"%Y-%m-%d")
+    #     diff=abs((end_date-start_date).days)
+    #     print(diff)
 
 
 
@@ -28,10 +34,9 @@ class JobsView(generics.ListCreateAPIView):
 
 
 
-    # def get(self, request, format=None):
-    #     users = Jobs.objects.all()
-    #     serializer = JobsSerializer(users, many=True)
-    #     return Response(serializer.data)
+
+
+
 
 
 class JobDetailView(RetrieveAPIView):

@@ -1,7 +1,10 @@
+import math
+
 from django.db import models
 from django.contrib.auth import  get_user_model
 User=get_user_model()
-import datetime
+import _datetime
+from django.utils.timezone import now
 from django.utils import timezone
 JOB_CATEGORIES=(
     ('IT - Software / Hardware / Networking','IT - Software / Hardware / Networking'),
@@ -64,14 +67,20 @@ class Jobs(models.Model):
     responsiblities=models.TextField(blank=False,)
     skill=models.TextField(blank=False,)
     education=models.CharField(max_length=255,blank=False,)
-    what_we_offer=models.TextField(blank=False,)
+    what_we_offer=models.TextField(blank=True,)
     email=models.EmailField( blank=False,)
-    post_date=models.DateField( auto_now_add=True)
+    post_date=models.DateField( default=_datetime.date.today, blank=False,editable=False)
     before_date=models.DateField(blank=False,)
     salary=models.CharField(max_length=255, blank=False,)
     position_type=models.CharField(max_length=255, choices=POSITION_TYPES,blank=False,)
     number_of_vacancy=models.CharField(max_length=255, blank=False,)
     job_type=models.CharField(max_length=255, choices=JOB_TYPES,blank=False,)
+    days_left=models.IntegerField(null=True, blank=True)
+
+    def save(self,*args, **kwargs):
+        self.days_left=((self.before_date - self.post_date).days)
+
+        super(Jobs, self).save(*args, **kwargs)
 
 
 
