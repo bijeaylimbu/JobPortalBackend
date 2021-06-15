@@ -2,11 +2,13 @@ import datetime
 
 from django.db.models import Q, F
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, filters, viewsets
+from rest_framework import generics, filters, viewsets, status
+from rest_framework.decorators import action
 
 from rest_framework.generics import  RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Jobs,HitCount
 from .serializers import JobsSerializer,HitCountSerializer
@@ -22,15 +24,33 @@ class JobsView(generics.ListCreateAPIView):
     search_fields = ['$position','$job_category']
     filterset_fields = ['job_category','location']
 
-    # def perform_create(self, serializer):
-    #     start_date=datetime.datetime.strptime(self.request.data.get('before_date'),"%Y-%m-%d")
-    #     end_date=datetime.datetime.strptime(self.request.data.get('post_date'),"%Y-%m-%d")
-    #     diff=abs((end_date-start_date).days)
-    #     print(diff)
+    @action(methods=['delete'], detail=False)
+    def detete(self,request,pk, format=None):
+        snippet=self.get_object(pk)
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
+class JobDelete(generics.ListAPIView):
+    queryset = Jobs.objects.all().select_related('post_by')
+    permission_classes = (AllowAny,)
+    serializer_class = JobsSerializer
 
+    def delete(self,request,pk,format=None):
+        snippet=self.get_object()
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
+    def delete_post(self,pk,request):
+        days_left=request.data.get('days_left')
+        id=request.data.get('Jobs')
+        post_instance=Jobs.objects.get(id=id)
+        print("needed to delete")
+        if days_left==0:
 
+            post_instance.delete()
+
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_304_NOT_MODIFIED)
 
 
 

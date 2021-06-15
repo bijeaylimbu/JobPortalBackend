@@ -2,6 +2,9 @@ import math
 
 from django.db import models
 from django.contrib.auth import  get_user_model
+from rest_framework import status
+from rest_framework.response import Response
+
 User=get_user_model()
 import _datetime
 from django.utils.timezone import now
@@ -81,6 +84,13 @@ class Jobs(models.Model):
         self.days_left=((self.before_date - self.post_date).days)
 
         super(Jobs, self).save(*args, **kwargs)
+    #
+    # def delete(self):
+    #    if self.days_left==0:
+    #     self.delete()
+
+
+
 
 
 
