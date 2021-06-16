@@ -1,3 +1,5 @@
+import datetime
+import json
 import math
 
 from django.db import models
@@ -82,23 +84,27 @@ class Jobs(models.Model):
 
     def save(self,*args, **kwargs):
         self.days_left=((self.before_date - self.post_date).days)
+        if self.days_left>=0:
+          super(Jobs, self).save(*args, **kwargs)
+        else:
+            return  False
 
-        super(Jobs, self).save(*args, **kwargs)
-    #
-    # def delete(self):
-    #    if self.days_left==0:
-    #     self.delete()
+    def delete_automaically(self):
+        time=self.post_date+datetime.timedelta(days=self.days_left)
+        if time< 0:
+            e=Jobs.objects.get(pk=self.pk)
+            Jobs.objects.filter(pk=self.pk).delete()
+            return  True
+        else:
+            return False
 
 
 
 
 
 
-    # class Meta:
-    #     ordering=['post_date']
-    #
-    # def __str__(self):
-    #     return self.position
+
+
 
 
 
