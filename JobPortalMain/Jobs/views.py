@@ -24,6 +24,18 @@ class JobsView(generics.ListCreateAPIView):
     search_fields = ['$position','$job_category']
     filterset_fields = ['job_category','location']
 
+    # def delete_post(self,pk,request):
+    #     days_left=request.data.get('days_left')
+    #     id=request.data.get('Jobs')
+    #     post_instance=Jobs.objects.get(id=id)
+    #     print("needed to delete")
+    #     if days_left<=0 and days_left==None:
+    #
+    #         post_instance.delete()
+    #
+    #         return Response(status=status.HTTP_200_OK)
+    #     return Response(status=status.HTTP_304_NOT_MODIFIED)
+
 
 
     @action(methods=['delete'], detail=False)
