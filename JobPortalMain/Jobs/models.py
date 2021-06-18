@@ -91,9 +91,10 @@ class Jobs(models.Model):
 
     def delete_automaically(self):
         time=self.post_date+datetime.timedelta(days=self.days_left)
-        if time< 0:
+        if time<= 0:
             e=Jobs.objects.get(pk=self.pk)
-            Jobs.objects.filter(pk=self.pk).delete()
+            # Jobs.objects.get(pk=self.pk).delete()
+            e.delete()
             return  True
         else:
             return False

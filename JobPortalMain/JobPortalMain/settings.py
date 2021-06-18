@@ -42,7 +42,8 @@ INSTALLED_APPS = [
   'corsheaders',
     'rest_framework.authtoken',
     'Jobs',
-    'django_filters'
+    'django_filters',
+
 
 ]
 

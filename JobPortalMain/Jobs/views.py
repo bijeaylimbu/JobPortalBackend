@@ -24,11 +24,19 @@ class JobsView(generics.ListCreateAPIView):
     search_fields = ['$position','$job_category']
     filterset_fields = ['job_category','location']
 
+
+
     @action(methods=['delete'], detail=False)
     def detete(self,request,pk, format=None):
         snippet=self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    # def get_queryset(self):
+    #     if self.request.query_params:
+    #         return  Jobs.objects.all()
+    #     else:
+    #         return Jobs.objects.none()
 
 class JobDelete(generics.ListAPIView):
     queryset = Jobs.objects.all().select_related('post_by')
